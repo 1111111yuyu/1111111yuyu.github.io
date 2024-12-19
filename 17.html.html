@@ -1,0 +1,200 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手機殼客戶管理系統</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            font-size: 24px;
+        }
+        main {
+            margin: 20px auto;
+            max-width: 1000px;
+        }
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        th:hover {
+            background-color: #45a049;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        input.search {
+            width: 40%;
+            margin: 10px auto;
+            display: block;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <header>手機殼客戶管理系統</header>
+    <main>
+        <!-- 客戶資料輸入表單 -->
+        <form id="customerForm">
+            <label for="name">客戶姓名：</label>
+            <input type="text" id="name" placeholder="輸入姓名" required>
+
+            <label for="phone">聯絡電話：</label>
+            <input type="text" id="phone" placeholder="輸入聯絡電話" required>
+
+            <label for="email">電子郵件：</label>
+            <input type="email" id="email" placeholder="輸入電子郵件">
+
+            <label for="device">手機型號：</label>
+            <input type="text" id="device" placeholder="例如：iPhone 14, Samsung S24" required>
+
+            <label for="style">偏好手機殼款式：</label>
+            <select id="style">
+                <option value="透明">透明</option>
+                <option value="印花">印花</option>
+                <option value="卡通">卡通</option>
+                <option value="簡約">簡約</option>
+            </select>
+
+            <label for="source">客戶來源：</label>
+            <select id="source">
+                <option value="社交媒體">社交媒體</option>
+                <option value="電子商務平台">電子商務平台</option>
+                <option value="實體店面">實體店面</option>
+                <option value="推薦">推薦</option>
+            </select>
+
+            <button type="button" onclick="addCustomer()">新增客戶資料</button>
+        </form>
+
+        <!-- 搜尋功能 -->
+        <input type="text" id="searchInput" class="search" placeholder="搜尋客戶姓名..." onkeyup="searchCustomer()">
+
+        <!-- 客戶資料表格 -->
+        <table>
+            <thead>
+                <tr>
+                    <th onclick="sortTable(0)">姓名</th>
+                    <th onclick="sortTable(1)">電話</th>
+                    <th onclick="sortTable(2)">電子郵件</th>
+                    <th onclick="sortTable(3)">手機型號</th>
+                    <th onclick="sortTable(4)">偏好款式</th>
+                    <th onclick="sortTable(5)">客戶來源</th>
+                </tr>
+            </thead>
+            <tbody id="customerTable">
+                <!-- 客戶資料顯示在此 -->
+            </tbody>
+        </table>
+    </main>
+
+    <script>
+        function addCustomer() {
+            const name = document.getElementById("name").value;
+            const phone = document.getElementById("phone").value;
+            const email = document.getElementById("email").value;
+            const device = document.getElementById("device").value;
+            const style = document.getElementById("style").value;
+            const source = document.getElementById("source").value;
+
+            if (!name || !phone || !device) {
+                alert("請填寫必要的資訊！");
+                return;
+            }
+
+            const table = document.getElementById("customerTable");
+            const row = table.insertRow();
+            row.insertCell(0).innerText = name;
+            row.insertCell(1).innerText = phone;
+            row.insertCell(2).innerText = email;
+            row.insertCell(3).innerText = device;
+            row.insertCell(4).innerText = style;
+            row.insertCell(5).innerText = source;
+
+            document.getElementById("customerForm").reset();
+        }
+
+        function searchCustomer() {
+            const input = document.getElementById("searchInput").value.toLowerCase();
+            const rows = document.querySelectorAll("#customerTable tr");
+
+            rows.forEach(row => {
+                const name = row.cells[0].innerText.toLowerCase();
+                row.style.display = name.includes(input) ? "" : "none";
+            });
+        }
+
+        function sortTable(columnIndex) {
+            const table = document.querySelector("#customerTable");
+            const rows = Array.from(table.rows);
+            const isAscending = table.dataset.sortOrder === "asc";
+            table.dataset.sortOrder = isAscending ? "desc" : "asc";
+
+            rows.sort((a, b) => {
+                const textA = a.cells[columnIndex].innerText;
+                const textB = b.cells[columnIndex].innerText;
+                return isAscending ? textA.localeCompare(textB) : textB.localeCompare(textA);
+            });
+
+            rows.forEach(row => table.appendChild(row));
+        }
+    </script>
+</body>
+</html>
