@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>花店名單收集頁</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .container h1 {
+            color: #444444;
+            margin-bottom: 20px;
+        }
+        .container p {
+            color: #666666;
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+        .container form {
+            margin-top: 20px;
+        }
+        .form-field {
+            margin-bottom: 15px;
+        }
+        .form-field input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #dddddd;
+            border-radius: 5px;
+        }
+        .btn-submit {
+            background-color: #ff6f61;
+            color: #ffffff;
+            font-size: 18px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .btn-submit:hover {
+            background-color: #ff574a;
+        }
+        .image-preview {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .footer {
+            font-size: 12px;
+            color: #aaaaaa;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img class="image-preview" src="https://via.placeholder.com/600x300" alt="花卉圖片">
+        <h1>立即下載《室內花藝指南》</h1>
+        <p>學習專業的花藝搭配技巧，讓你的空間更有品味！</p>
+        <form action="/submit" method="POST">
+            <div class="form-field">
+                <input type="text" name="name" placeholder="輸入您的姓名（可選）">
+            </div>
+            <div class="form-field">
+                <input type="email" name="email" placeholder="輸入您的電子郵件" required>
+            </div>
+            <button type="submit" class="btn-submit">立即獲取指南</button>
+        </form>
+        <p class="footer">我們尊重您的隱私，您的信息僅用於提供花藝相關資訊。</p>
+    </div>
+</body>
+</html>
